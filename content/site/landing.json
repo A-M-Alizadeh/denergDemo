@@ -1,0 +1,128 @@
+{
+  "hero": {
+    "eyebrow": "Research & Innovation",
+    "title": "Pushing the frontier of knowledge",
+    "lede": "An interdisciplinary academic team advancing science, technology, and real-world impact.",
+    "ctaPrimary": {
+      "label": "Meet the Team",
+      "href": "/people"
+    },
+    "ctaSecondary": {
+      "label": "View Projects",
+      "href": "#projects"
+    },
+    "stats": [
+      {
+        "label": "Researchers",
+        "value": "25+"
+      },
+      {
+        "label": "Active Projects",
+        "value": "40+"
+      },
+      {
+        "label": "Publications",
+        "value": "120+"
+      }
+    ],
+    "highlight": {
+      "title": "AI for Sustainable Systems",
+      "body": "Modeling and optimizing critical infrastructure with data-driven methods.",
+      "items": [
+        "Resilient networks",
+        "Energy optimization",
+        "Predictive maintenance"
+      ],
+      "href": "#projects",
+      "linkLabel": "Explore projects"
+    }
+  },
+  "why": {
+    "eyebrow": "Why Collaborate",
+    "title": "We turn research into real-world solutions",
+    "lede": "From theory to deployment, we co-create with industry, academia, and public partners.",
+    "primary": {
+      "label": "Contact Us",
+      "href": "mailto:contact@university.edu"
+    },
+    "secondary": {
+      "label": "Join a project",
+      "href": "#people"
+    }
+  },
+  "pillars": [
+    {
+      "title": "Data & Intelligence",
+      "body": "Machine learning, trustworthy AI, and decision systems for complex environments."
+    },
+    {
+      "title": "Systems & Infrastructure",
+      "body": "Resilient networks, sustainable energy, mobility, and cyber-physical systems."
+    },
+    {
+      "title": "Human & Society",
+      "body": "Human-centered design, ethics, policy, and the social impact of technology."
+    }
+  ],
+  "projects": [
+    {
+      "eyebrow": "Sustainability",
+      "title": "Adaptive Energy Grids",
+      "body": "Optimization models that balance demand, renewables, and grid resilience.",
+      "href": "/people",
+      "linkLabel": "Meet the team"
+    },
+    {
+      "eyebrow": "Health",
+      "title": "Predictive Care Pathways",
+      "body": "Data-driven insights that support clinicians with transparent, safe AI.",
+      "href": "/people",
+      "linkLabel": "Meet the team"
+    },
+    {
+      "eyebrow": "Mobility",
+      "title": "Urban Flow Intelligence",
+      "body": "Real-time analytics to improve traffic, safety, and emissions in cities.",
+      "href": "/people",
+      "linkLabel": "Meet the team"
+    }
+  ],
+  "team": {
+    "eyebrow": "Team",
+    "title": "People behind the work",
+    "lede": "Faculty, researchers, and students collaborating across disciplines.",
+    "primary": {
+      "label": "View people",
+      "href": "/people"
+    },
+    "secondary": {
+      "label": "Get in touch",
+      "href": "mailto:contact@university.edu"
+    },
+    "ctaTitle": "Collaborate with us",
+    "ctaBody": "We welcome visiting scholars, joint proposals, and student research opportunities."
+  },
+  "news": [
+    {
+      "eyebrow": "Publication",
+      "title": "Journal of Applied AI",
+      "body": "New paper on interpretable models for critical infrastructure.",
+      "href": "#",
+      "linkLabel": "Read more"
+    },
+    {
+      "eyebrow": "Announcement",
+      "title": "Workshop 2026",
+      "body": "Join our annual workshop on data, systems, and society.",
+      "href": "#",
+      "linkLabel": "Register"
+    },
+    {
+      "eyebrow": "EyeBrow",
+      "title": "DigitalTwin",
+      "body": "A digitaltwin for a living lab case",
+      "href": "tebelab.polito.it",
+      "linkLabel": "TebeLab website address"
+    }
+  ]
+}

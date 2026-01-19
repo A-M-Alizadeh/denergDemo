@@ -1,16 +1,182 @@
 ---
+import Layout from '../layouts/Layout.astro';
+import { readFile } from 'node:fs/promises';
+import { join } from 'node:path';
 
+type CTA = { label: string; href: string };
+type Stat = { label: string; value: string };
+type Highlight = { title: string; body: string; items: string[]; href: string; linkLabel: string };
+type Pillar = { title: string; body: string };
+type ProjectCard = { eyebrow: string; title: string; body: string; href: string; linkLabel: string };
+type NewsCard = { eyebrow: string; title: string; body: string; href: string; linkLabel: string };
+
+type LandingContent = {
+  hero: {
+    eyebrow: string;
+    title: string;
+    lede: string;
+    ctaPrimary: CTA;
+    ctaSecondary: CTA;
+    stats: Stat[];
+    highlight: Highlight;
+  };
+  why: {
+    eyebrow: string;
+    title: string;
+    lede: string;
+    primary: CTA;
+    secondary: CTA;
+  };
+  pillars: Pillar[];
+  projects: ProjectCard[];
+  team: {
+    eyebrow: string;
+    title: string;
+    lede: string;
+    primary: CTA;
+    secondary: CTA;
+    ctaTitle: string;
+    ctaBody: string;
+  };
+  news: NewsCard[];
+};
+
+async function loadContent(): Promise<LandingContent> {
+  const contentPath = join(process.cwd(), 'content/site/landing.json');
+  const raw = await readFile(contentPath, 'utf-8');
+  return JSON.parse(raw) as LandingContent;
+}
+
+let content: LandingContent;
+
+try {
+  content = await loadContent();
+} catch (error) {
+  console.error('Unable to load landing content. Check content/site/landing.json for validity.', error);
+  throw error;
+}
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="Home - University Research Team">
+  <section class="hero">
+    <div class="container hero__grid">
+      <div class="hero__copy">
+        <p class="eyebrow">{content.hero.eyebrow}</p>
+        <h1>{content.hero.title}</h1>
+        <p class="lede">{content.hero.lede}</p>
+        <div class="hero__actions">
+          <a class="btn primary" href={content.hero.ctaPrimary.href}>{content.hero.ctaPrimary.label}</a>
+          <a class="btn ghost" href={content.hero.ctaSecondary.href}>{content.hero.ctaSecondary.label}</a>
+        </div>
+        <div class="hero__stats">
+          {content.hero.stats.map((stat) => (
+            <div>
+              <strong>{stat.value}</strong><span>{stat.label}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div class="hero__card">
+        <p class="eyebrow">Featured Highlight</p>
+        <h3>{content.hero.highlight.title}</h3>
+        <p>{content.hero.highlight.body}</p>
+        <ul>
+          {content.hero.highlight.items.map((item) => (
+            <li>{item}</li>
+          ))}
+        </ul>
+        <a class="link" href={content.hero.highlight.href}>{content.hero.highlight.linkLabel} →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="banner">
+    <div class="container banner__inner">
+      <div>
+        <p class="eyebrow">{content.why.eyebrow}</p>
+        <h2>{content.why.title}</h2>
+        <p class="lede">{content.why.lede}</p>
+      </div>
+      <div class="banner__actions">
+        <a class="btn ghost" href={content.why.primary.href}>{content.why.primary.label}</a>
+        <a class="btn secondary" href={content.why.secondary.href}>{content.why.secondary.label}</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="pillars" class="section">
+    <div class="container">
+      <div class="section__header">
+        <p class="eyebrow">Domains</p>
+        <h2>Our research pillars</h2>
+      </div>
+      <div class="pillars">
+        {content.pillars.map((pillar) => (
+          <article class="pillar">
+            <h3>{pillar.title}</h3>
+            <p>{pillar.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="projects" class="section muted">
+    <div class="container">
+      <div class="section__header">
+        <p class="eyebrow">Projects</p>
+        <h2>Current initiatives</h2>
+      </div>
+      <div class="cards">
+        {content.projects.map((project) => (
+          <article class="card">
+            <p class="eyebrow">{project.eyebrow}</p>
+            <h3>{project.title}</h3>
+            <p>{project.body}</p>
+            <a class="link" href={project.href}>{project.linkLabel} →</a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section id="people" class="section">
+    <div class="container">
+      <div class="section__header">
+        <p class="eyebrow">{content.team.eyebrow}</p>
+        <h2>{content.team.title}</h2>
+        <p class="lede">{content.team.lede}</p>
+      </div>
+      <div class="cta-row">
+        <div>
+          <h3>{content.team.ctaTitle}</h3>
+          <p>{content.team.ctaBody}</p>
+        </div>
+        <div class="cta-row__actions">
+          <a class="btn primary" href={content.team.primary.href}>{content.team.primary.label}</a>
+          <a class="btn ghost" href={content.team.secondary.href}>{content.team.secondary.label}</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section muted">
+    <div class="container">
+      <div class="section__header">
+        <p class="eyebrow">Updates</p>
+        <h2>News & publications</h2>
+      </div>
+      <div class="cards two-col">
+        {content.news.map((item) => (
+          <article class="card">
+            <p class="eyebrow">{item.eyebrow}</p>
+            <h3>{item.title}</h3>
+            <p>{item.body}</p>
+            <a class="link" href={item.href}>{item.linkLabel} →</a>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+</Layout>
+

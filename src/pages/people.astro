@@ -1,0 +1,82 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { readdir, readFile } from 'node:fs/promises';
+import { join } from 'node:path';
+import matter from 'gray-matter';
+import Markdoc from '@markdoc/markdoc';
+
+// Read all people from the content directory and render rich content
+let people: Array<{
+  slug: string;
+  name: string;
+  role?: string;
+  email?: string;
+  avatar?: string;
+  bioHtml?: string;
+}> = [];
+
+try {
+  const peopleDir = join(process.cwd(), 'content/people');
+  const files = await readdir(peopleDir).catch(() => []);
+
+  for (const file of files) {
+    if (file.endsWith('.mdoc')) {
+      const raw = await readFile(join(peopleDir, file), 'utf-8');
+      const { data, content } = matter(raw);
+
+      const ast = Markdoc.parse(content);
+      const transformed = Markdoc.transform(ast);
+      const bioHtml = Markdoc.renderers.html(transformed);
+      people.push({
+        slug: file.replace('.mdoc', ''),
+        name: (data.name as string) ?? file.replace('.mdoc', ''),
+        role: (data.role as string) ?? '',
+        email: (data.email as string) ?? '',
+        avatar: (data.avatar as string) ?? '',
+        bioHtml,
+      });
+    }
+  }
+} catch (error) {
+  console.log('No people found yet. Add some via /keystatic admin panel!');
+}
+---
+
+<Layout title="People - University Research Team">
+  <div class="hero">
+    <div class="container">
+      <h1>Our Team</h1>
+      <p>Meet the brilliant minds behind our research</p>
+    </div>
+  </div>
+
+  <div class="container">
+    {people.length === 0 ? (
+      <div style="text-align: center; padding: 3rem 0;">
+        <p style="font-size: 1.25rem; color: #666;">
+          No team members added yet. Visit the <a href="/keystatic" style="color: #667eea;">admin panel</a> to add people!
+        </p>
+      </div>
+    ) : (
+      <div class="people-grid">
+        {people.map((person) => (
+          <div class="person-card">
+            {person.avatar && (
+              <img src={person.avatar} alt={person.name} />
+            )}
+            <h3><a href={`/people/${person.slug}`} style="text-decoration: none; color: inherit;">{person.name}</a></h3>
+            <div class="role">{person.role}</div>
+            {person.email && (
+              <div class="email">
+                <a href={`mailto:${person.email}`}>{person.email}</a>
+              </div>
+            )}
+            <div style="margin-top: 0.75rem;">
+              <a href={`/people/${person.slug}`} style="color: #667eea; text-decoration: none; font-weight: 500;">View Profile →</a>
+            </div>
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
+</Layout>
