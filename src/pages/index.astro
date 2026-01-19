@@ -87,7 +87,7 @@ try {
             <li>{item}</li>
           ))}
         </ul>
-        <a class="link" href={content.hero.highlight.href}>{content.hero.highlight.linkLabel} →</a>
+        <a class="link" href={withBase(content.hero.highlight.href)}>{content.hero.highlight.linkLabel} →</a>
       </div>
     </div>
   </section>
@@ -100,8 +100,8 @@ try {
         <p class="lede">{content.why.lede}</p>
       </div>
       <div class="banner__actions">
-        <a class="btn ghost" href={content.why.primary.href}>{content.why.primary.label}</a>
-        <a class="btn secondary" href={content.why.secondary.href}>{content.why.secondary.label}</a>
+        <a class="btn ghost" href={withBase(content.why.primary.href)}>{content.why.primary.label}</a>
+        <a class="btn secondary" href={withBase(content.why.secondary.href)}>{content.why.secondary.label}</a>
       </div>
     </div>
   </section>
@@ -155,8 +155,8 @@ try {
           <p>{content.team.ctaBody}</p>
         </div>
         <div class="cta-row__actions">
-          <a class="btn primary" href={content.team.primary.href}>{content.team.primary.label}</a>
-          <a class="btn ghost" href={content.team.secondary.href}>{content.team.secondary.label}</a>
+          <a class="btn primary" href={withBase(content.team.primary.href)}>{content.team.primary.label}</a>
+          <a class="btn ghost" href={withBase(content.team.secondary.href)}>{content.team.secondary.label}</a>
         </div>
       </div>
     </div>
