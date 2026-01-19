@@ -48,6 +48,8 @@ async function loadContent(): Promise<LandingContent> {
 }
 
 let content: LandingContent;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const withBase = (href: string) => (href?.startsWith('/') ? `${base}${href}` : href);
 
 try {
   content = await loadContent();
@@ -65,8 +67,8 @@ try {
         <h1>{content.hero.title}</h1>
         <p class="lede">{content.hero.lede}</p>
         <div class="hero__actions">
-          <a class="btn primary" href={content.hero.ctaPrimary.href}>{content.hero.ctaPrimary.label}</a>
-          <a class="btn ghost" href={content.hero.ctaSecondary.href}>{content.hero.ctaSecondary.label}</a>
+          <a class="btn primary" href={withBase(content.hero.ctaPrimary.href)}>{content.hero.ctaPrimary.label}</a>
+          <a class="btn ghost" href={withBase(content.hero.ctaSecondary.href)}>{content.hero.ctaSecondary.label}</a>
         </div>
         <div class="hero__stats">
           {content.hero.stats.map((stat) => (
@@ -133,7 +135,7 @@ try {
             <p class="eyebrow">{project.eyebrow}</p>
             <h3>{project.title}</h3>
             <p>{project.body}</p>
-            <a class="link" href={project.href}>{project.linkLabel} →</a>
+            <a class="link" href={withBase(project.href)}>{project.linkLabel} →</a>
           </article>
         ))}
       </div>
@@ -172,7 +174,7 @@ try {
             <p class="eyebrow">{item.eyebrow}</p>
             <h3>{item.title}</h3>
             <p>{item.body}</p>
-            <a class="link" href={item.href}>{item.linkLabel} →</a>
+            <a class="link" href={withBase(item.href)}>{item.linkLabel} →</a>
           </article>
         ))}
       </div>

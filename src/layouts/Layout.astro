@@ -6,6 +6,8 @@ interface Props {
 }
 
 const { title } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const withBase = (href: string) => (href?.startsWith('/') ? `${base}${href}` : href);
 ---
 
 <!doctype html>
@@ -18,14 +20,14 @@ const { title } = Astro.props;
   <body>
     <nav>
       <div class="container">
-        <a href="/" class="logo">Denerg Polito</a>
+        <a href={withBase('/')} class="logo">Denerg Polito</a>
         <ul>
-          <li><a href="/">Home</a></li>
-          <li><a href="/people">Team</a></li>
-          <li><a href="/#projects">Projects</a></li>
-          <li><a href="/#pillars">Departments</a></li>
-          <li><a href="/blog">Blog</a></li>
-          <li><a href="/keystatic">Admin</a></li>
+          <li><a href={withBase('/')}>Home</a></li>
+          <li><a href={withBase('/people')}>Team</a></li>
+          <li><a href={withBase('/#projects')}>Projects</a></li>
+          <li><a href={withBase('/#pillars')}>Departments</a></li>
+          <li><a href={withBase('/blog')}>Blog</a></li>
+          <li><a href={withBase('/keystatic')}>Admin</a></li>
         </ul>
       </div>
     </nav>

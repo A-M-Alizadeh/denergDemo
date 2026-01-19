@@ -12,5 +12,7 @@ export default defineConfig({
     markdoc(),
     process.env.NODE_ENV !== 'production' && keystatic()
   ].filter(Boolean),
+  site: 'https://a-m-alizadeh.github.io',
+  base: '/denergDemo',
   output: 'static',
 });
